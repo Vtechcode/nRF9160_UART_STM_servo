@@ -61,8 +61,10 @@ int main()
 
     while(cnt <= 2)
 {
-    snprintf(tx_buff, sizeof(tx_buff), "Cnt: %d\n", cnt);
     
+    snprintf(tx_buff, sizeof(tx_buff), "%d\n", cnt);
+    
+    /* transmit data */
     err = uart_tx(uart1, tx_buff, strlen(tx_buff), SYS_FOREVER_US);
     if (err)
     {
@@ -71,7 +73,12 @@ int main()
     }
     
     cnt++;
-    k_msleep(1000);
+    if (cnt > 2)
+    {
+        cnt = 0;
+    }
+    
+    k_msleep(5000);
 }
 
     
